@@ -1,5 +1,6 @@
 import * as API from "../utilities/";
 import io from "socket.io-client";
+import { setMessage } from "./modal";
 
 export const resetImage = () => {
   return {
@@ -40,9 +41,8 @@ export const trianguleImage = (image, userOptions) => {
         dispatch(setImage(data.image));
       });
       socket.on("triangly/triangulate/failure", err => {
-        alert("Unexpected error");
+        dispatch(setMessage({ text: "Unexpected error", time: 2000 }));
         dispatch(setImage(undefined));
-        console.log(err);
       });
       socket.emit("triangly/triangulate/create", props);
     });
