@@ -1,6 +1,6 @@
 {
 	"name": "Triangly",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"scripts": {
 		"release-ios": "code-push release-react triangly-ios ios",
 		"release-android": "code-push release-react triangly-android android",
@@ -16,7 +16,6 @@
 		"react": "~15.4.1",
 		"react-native": "0.42.0",
 		"react-native-code-push": "^1.17.2-beta",
-		"react-native-dotenv": "^0.0.3",
 		"react-native-fs": "^2.1.0-rc.1",
 		"react-native-image-picker": "^0.26.0",
 		"react-native-root-toast": "^1.0.3",
