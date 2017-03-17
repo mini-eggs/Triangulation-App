@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Platform, View, Dimensions, Animated } from "react-native";
-import { Text, Left, Body, Right } from "native-base";
+import { Text, Left, Body, Right, Button } from "native-base";
 import { connect } from "react-redux";
 import { ModalActions } from "../actions/";
 
@@ -8,20 +8,22 @@ const styles = {
   ToastContainer: {
     position: "absolute",
     zIndex: 99,
-    width: Dimensions.get("window").width - 80,
-    left: 40,
-    backgroundColor: "rgba(0,0,0,0.9)",
-    padding: 15,
-    borderRadius: 5,
     flexDirection: "row"
   },
   Text: {
     color: "white",
     textAlign: "center"
+  },
+  Button: {
+    flex: 1,
+    margin: 50,
+    marginBottom: 0,
+    marginTop: 0,
+    backgroundColor: "rgba(0,0,0,0.9)"
   }
 };
 
-const posBase = Platform.OS === "ios" ? 90 : 40;
+const posBase = 50;
 
 class ModalComponent extends Component {
   constructor(props) {
@@ -83,20 +85,17 @@ class ModalComponent extends Component {
   }
 
   render() {
-    if (!this.state.midTransition) {
-      return null;
-    }
-
+    const containerStyles = Object.assign({}, styles.ToastContainer, {
+      opacity: this.state.fadeAnim,
+      bottom: this.state.positionAnim
+    });
     return (
-      <Animated.View
-        style={Object.assign({}, styles.ToastContainer, {
-          opacity: this.state.fadeAnim,
-          bottom: this.state.positionAnim
-        })}
-      >
-        <View style={{ flex: 1 }}>
-          <Text style={styles.Text}> {this.state.message} </Text>
-        </View>
+      <Animated.View style={containerStyles}>
+        <Button full rounded style={styles.Button}>
+          <Text style={styles.Text}>
+            {this.state.message}
+          </Text>
+        </Button>
       </Animated.View>
     );
   }
