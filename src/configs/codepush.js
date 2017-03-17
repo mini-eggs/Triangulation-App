@@ -5,9 +5,6 @@ import CodePush, {
   sync
 } from "react-native-code-push";
 
-/**
- * Options
- */
 const options = {
   checkFrequency: CheckFrequency.ON_APP_RESUME
 };
@@ -17,9 +14,6 @@ const syncOptions = {
   installMode: InstallMode.IMMEDIATE
 };
 
-/**
- * Layer
- */
 class CodePushComponent extends Component {
   componentDidMount() {
     sync(syncOptions);

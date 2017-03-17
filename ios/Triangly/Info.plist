@@ -3,17 +3,17 @@
 <plist version="1.0">
   <dict>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>something</string>
+    <string>Triangulate images!</string>
     <key>NSCameraUsageDescription</key>
-    <string>something</string>
+    <string>Triangulate images!</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>something</string>
+    <string>Triangulate images!</string>
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
-    <string>org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)</string>
+    <string>org.reactjs.native.example.triangly</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
