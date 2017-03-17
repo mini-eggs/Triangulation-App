@@ -12,10 +12,13 @@ const stateToProps = state => {
 
 const actionsToProps = dispatch => {
   return {
-    setMessage: (message) => dispatch(ModalActions.setMessage(message)),
-    resetImage: () => { dispatch(WorkshopActions.resetImage()) },
+    setMessage: message => dispatch(ModalActions.setMessage(message)),
+    resetImage: () => {
+      dispatch(WorkshopActions.resetImage());
+    },
     removeInitialImage: () => dispatch(DiscoverActions.setImage(undefined)),
-    trianguleImage: (image, options) => dispatch(WorkshopActions.trianguleImage(image, options))
+    trianguleImage: (image, options) =>
+      dispatch(WorkshopActions.trianguleImage(image, options))
   };
 };
 

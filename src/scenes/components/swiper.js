@@ -5,27 +5,6 @@ import Swiper from "react-native-swiper";
 import FadeIn from "@expo/react-native-fade-in-image";
 
 const styles = {
-  Swiper: {},
-  slide1: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  text: {
-    color: "#fff",
-    fontSize: 30,
-    fontWeight: "bold"
-  },
   placeholderStyle: {
     backgroundColor: "white",
     flex: 1,
@@ -43,10 +22,8 @@ const styles = {
   }
 };
 
-const height = Dimensions.get("window").height - 65 - 55;
-
 const swiperOptions = {
-  height: height,
+  height: Dimensions.get("window").height - 65 - 55,
   showsButtons: false,
   autoplay: true,
   loop: true,
@@ -54,14 +31,10 @@ const swiperOptions = {
   activeDotColor: "rgba(0,0,0,0.5)"
 };
 
-export const CustomSpinner = () => {
-  return <Spinner color="black" />;
-};
-
 const RenderImage = props => {
   return (
     <FadeIn
-      renderPlaceholderContent={<CustomSpinner />}
+      renderPlaceholderContent={<Spinner color="#000" />}
       placeholderStyle={styles.placeholderStyle}
       style={styles.FadeIn}
     >
@@ -76,12 +49,10 @@ const RenderImage = props => {
 
 export const DiscoverSwiper = props => {
   return (
-    <Swiper style={styles.Swiper} {...swiperOptions}>
-      {
-        props.images.map((image, index) => {
-          return <RenderImage key={index} image={image} />;
-        })
-      }
+    <Swiper {...swiperOptions}>
+      {props.images.map((image, index) => {
+        return <RenderImage key={index} image={image} />;
+      })}
     </Swiper>
   );
 };

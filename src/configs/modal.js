@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Platform } from "react-native";
 import { connect } from "react-redux";
 import Toast from "react-native-root-toast";
 import { ModalActions } from "../actions/";
@@ -13,7 +14,9 @@ class ModalComponent extends Component {
       const message = nextprops.messages[0];
       Toast.show(message.text, {
         duration: Toast.durations.SHORT,
-        position: Toast.positions.BOTTOM,
+        position: Platform.OS === "ios"
+          ? Toast.positions.BOTTOM
+          : Toast.positions.TOP,
         shadow: false,
         animation: true,
         hideOnPress: true,

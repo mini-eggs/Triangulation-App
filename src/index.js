@@ -1,10 +1,10 @@
 import React from "react";
 import { AppRegistry } from "react-native";
-import { Container } from "native-base";
 import { CodePushLayer } from "./configs/codepush";
 import { ReduxLayer } from "./configs/redux";
 import { FirebaseLayer } from "./configs/firebase";
 import { ModalLayer } from "./configs/modal";
+import { StylesLayer } from "./configs/styles";
 import { RoutingLayer } from "./routes/";
 
 const Triangly = () => {
@@ -12,10 +12,10 @@ const Triangly = () => {
     <CodePushLayer>
       <ReduxLayer>
         <FirebaseLayer>
-          <Container>
+          <StylesLayer>
             <RoutingLayer />
             <ModalLayer />
-          </Container>
+          </StylesLayer>
         </FirebaseLayer>
       </ReduxLayer>
     </CodePushLayer>

@@ -1,10 +1,20 @@
 import React, { Component } from "react";
-import { Container, Icon, Footer, Header, Left, Button, Body, Title, Right, FooterTab } from "native-base";
+import { Platform } from "react-native";
+import {
+  Container,
+  Icon,
+  Footer,
+  Header,
+  Left,
+  Button,
+  Body,
+  Title,
+  Right,
+  FooterTab
+} from "native-base";
 import { DiscoverSwiper } from "./components/swiper";
-import { styles } from "./styles/topLevel";
 
 export class DiscoverScene extends Component {
-  
   componentDidMount() {
     this.props.getFeaturedImages();
   }
@@ -22,7 +32,7 @@ export class DiscoverScene extends Component {
     return (
       <Container>
 
-        <Header>
+        <Header noShadow>
           <Left />
           <Body>
             <Title>
@@ -32,17 +42,22 @@ export class DiscoverScene extends Component {
           <Right />
         </Header>
 
-        <DiscoverSwiper 
-          images={this.props.images} 
-        />
+        <DiscoverSwiper images={this.props.images} />
 
-        <Footer style={styles.Footer}>
+        <Footer>
           <FooterTab>
-            <Button transparent onPress={() => { this.props.chooseImage() }}>
+            <Button
+              transparent
+              onPress={() => {
+                this.props.chooseImage();
+              }}
+            >
               <Icon
-                active
                 name="md-camera"
-                style={{ color: '#000' }}
+                style={{
+                  color: "#000",
+                  marginTop: Platform.OS === "ios" ? 0 : -15
+                }}
               />
             </Button>
           </FooterTab>

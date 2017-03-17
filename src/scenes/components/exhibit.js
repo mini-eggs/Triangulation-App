@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Image, Text } from "react-native";
+import { Spinner } from "native-base";
 import FadeIn from "@expo/react-native-fade-in-image";
-import { CustomSpinner } from "./swiper";
 
 const styles = {
   placeholderStyle: {
@@ -21,28 +21,30 @@ const styles = {
 };
 
 export class Exhibit extends Component {
-
-  constructor (props) {
-    super(props)
-    this.state = { show: true }
+  constructor(props) {
+    super(props);
+    this.state = { show: true };
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.image !== this.props.image) {
-      this.setState(() => {
-        return { show: false }
-      }, () => {
-        this.setState(() => {
-          return { show: true }
-        })
-      })
+      this.setState(
+        () => {
+          return { show: false };
+        },
+        () => {
+          this.setState(() => {
+            return { show: true };
+          });
+        }
+      );
     }
   }
-  
-  image () {
+
+  image() {
     return (
       <FadeIn
-        renderPlaceholderContent={<CustomSpinner />}
+        renderPlaceholderContent={<Spinner color="#000" />}
         placeholderStyle={styles.placeholderStyle}
         style={styles.FadeIn}
       >
@@ -55,12 +57,11 @@ export class Exhibit extends Component {
     );
   }
 
-  render () {
+  render() {
     // hax to show the user
     // we're loading on setting
     // change after use hits
     // the apply button
-    return this.state.show ? this.image() : null
+    return this.state.show ? this.image() : null;
   }
-
-};
+}

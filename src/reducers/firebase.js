@@ -1,7 +1,5 @@
 const initialState = {
-  featured: [
-    "https://something.really.cool/"
-  ]
+  featured: ["https://something.really.cool/"]
 };
 
 export const FirebaseReducer = (state = initialState, action) => {

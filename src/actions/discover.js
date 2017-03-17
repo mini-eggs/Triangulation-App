@@ -32,7 +32,7 @@ export const chooseImage = () => {
     try {
       dispatch(setImage(await getImage()));
     } catch (err) {
-      console.log(err)
+      console.log(err);
       // TODO: figure this out
       // or maybe not
       // this most likely

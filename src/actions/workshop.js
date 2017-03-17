@@ -4,8 +4,8 @@ import io from "socket.io-client";
 export const resetImage = () => {
   return {
     type: "RESET_IMAGE"
-  }
-}
+  };
+};
 
 export const setImage = image => {
   return {
@@ -40,7 +40,7 @@ export const trianguleImage = (image, userOptions) => {
         dispatch(setImage(data.image));
       });
       socket.on("triangly/triangulate/failure", err => {
-        alert('Unexpected error')
+        alert("Unexpected error");
         dispatch(setImage(undefined));
         console.log(err);
       });
