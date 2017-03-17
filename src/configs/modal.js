@@ -30,28 +30,40 @@ class ModalComponent extends Component {
     super(props);
     this.state = {
       fadeAnim: new Animated.Value(0),
-      positionAnim: new Animated.Value(posBase),
+      positionAnim: new Animated.Value(-999),
       message: "No message has been entered",
       midTransition: false
     };
   }
 
   start() {
-    Animated.parallel([
-      Animated.timing(this.state.fadeAnim, { toValue: 1, duration: 300 }),
+    Animated.sequence([
       Animated.timing(this.state.positionAnim, {
-        toValue: posBase + 10,
-        duration: 300
-      })
+        toValue: posBase,
+        duration: 0
+      }),
+      Animated.parallel([
+        Animated.timing(this.state.fadeAnim, { toValue: 1, duration: 300 }),
+        Animated.timing(this.state.positionAnim, {
+          toValue: posBase + 10,
+          duration: 300
+        })
+      ])
     ]).start();
   }
 
   remove() {
-    Animated.parallel([
-      Animated.timing(this.state.fadeAnim, { toValue: 0, duration: 300 }),
+    Animated.sequence([
+      Animated.parallel([
+        Animated.timing(this.state.fadeAnim, { toValue: 0, duration: 300 }),
+        Animated.timing(this.state.positionAnim, {
+          toValue: posBase,
+          duration: 300
+        })
+      ]),
       Animated.timing(this.state.positionAnim, {
-        toValue: posBase,
-        duration: 300
+        toValue: -999,
+        duration: 0
       })
     ]).start();
   }
