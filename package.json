@@ -1,0 +1,33 @@
+{
+	"name": "Triangly",
+	"version": "0.0.1",
+	"scripts": {
+		"release-ios": "code-push release-react triangly-ios ios",
+		"release-android": "code-push release-react triangly-android android",
+		"start-ios": "react-native run-ios",
+		"start-android": "react-native run-android",
+		"build-android": "cd android && ./gradlew assembleRelease && cd .. ",
+		"prettier": "prettier --write './src/**/*.js'"
+	},
+	"dependencies": {
+		"@expo/react-native-fade-in-image": "^1.1.1",
+		"firebase": "^3.7.1",
+		"native-base": "^2.0.12",
+		"react": "~15.4.1",
+		"react-native": "0.42.0",
+		"react-native-code-push": "^1.17.2-beta",
+		"react-native-dotenv": "^0.0.3",
+		"react-native-image-picker": "^0.26.0",
+		"react-native-root-toast": "^1.0.3",
+		"react-native-swiper": "^1.5.4",
+		"react-redux": "^5.0.3",
+		"react-router": "^4.0.0",
+		"redux": "^3.6.0",
+		"redux-thunk": "^2.2.0",
+		"socket.io-client": "^1.7.3"
+	},
+	"devDependencies": {
+		"babel-jest": "19.0.0",
+		"babel-preset-react-native": "1.9.1"
+	}
+}

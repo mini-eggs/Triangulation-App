@@ -1,0 +1,4 @@
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">Qq6S6zO2psvz_FTbTNc9ieBTmaezNJwMrggsM</string>
+    <string name="app_name">Triangly</string>
+</resources>
