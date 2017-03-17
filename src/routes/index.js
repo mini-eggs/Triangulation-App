@@ -1,16 +1,15 @@
 import React from "react";
-import { Container } from "native-base";
-import { MemoryRouter, Route } from "react-router";
+import { Scene, Router } from "react-native-router-flux";
 import { DiscoverContainer } from "../containers/discover";
 import { WorkshopContainer } from "../containers/workshop";
 
 export const RoutingLayer = () => {
   return (
-    <MemoryRouter>
-      <Container>
-        <Route exact path="/" component={DiscoverContainer} />
-        <Route exact path="/workshop" component={WorkshopContainer} />
-      </Container>
-    </MemoryRouter>
+    <Router>
+      <Scene key="root">
+        <Scene hideNavBar key="discover" component={DiscoverContainer} />
+        <Scene hideNavBar key="workshop" component={WorkshopContainer} />
+      </Scene>
+    </Router>
   );
 };

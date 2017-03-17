@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Actions } from "react-native-router-flux";
 import { Platform } from "react-native";
 import {
   Container,
@@ -24,7 +25,7 @@ export class DiscoverScene extends Component {
    */
   componentDidUpdate() {
     if (typeof this.props.image === "string") {
-      this.props.history.push("/workshop");
+      Actions.workshop();
     }
   }
 

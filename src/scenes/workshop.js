@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Actions } from "react-native-router-flux";
 import {
   CameraRoll,
   Dimensions,
@@ -60,14 +61,12 @@ export class WorkshopScene extends Component {
         }
         this.props.setMessage({
           text: "Image has been saved",
-          autohide: true,
           time: 1250
         });
       } catch (err) {
         console.log(err);
         this.props.setMessage({
           text: "Image could not be saved",
-          autohide: true,
           time: 1250
         });
       }
@@ -116,7 +115,7 @@ export class WorkshopScene extends Component {
             <Button
               transparent
               onPress={() => {
-                this.props.history.goBack();
+                Actions.pop();
               }}
             >
               <Icon style={{ color: "#000" }} name="arrow-back" />
