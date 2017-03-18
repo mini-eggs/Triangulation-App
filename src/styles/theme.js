@@ -228,7 +228,7 @@ export default {
   radioColor: "#7e7e7e",
 
   get radioSelectedColor() {
-    return color(this.radioColor).darken(0.2).hexString();
+    return color(this.radioColor).darken(0.1).hexString();
   },
 
   // Spinner

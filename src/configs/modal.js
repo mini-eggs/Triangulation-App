@@ -38,34 +38,36 @@ class ModalComponent extends Component {
 
   start() {
     Animated.sequence([
-      Animated.timing(this.state.positionAnim, {
-        toValue: posBase,
-        duration: 0
-      }),
-      Animated.parallel([
-        Animated.timing(this.state.fadeAnim, { toValue: 1, duration: 300 }),
         Animated.timing(this.state.positionAnim, {
-          toValue: posBase + 10,
-          duration: 300
-        })
+          toValue: posBase,
+          duration: 0
+        }),
+        Animated.parallel([
+          Animated.timing(this.state.fadeAnim, { toValue: 1, duration: 300 }),
+          Animated.timing(this.state.positionAnim, {
+            toValue: posBase + 10,
+            duration: 300
+          })
+        ])
       ])
-    ]).start();
+      .start();
   }
 
   remove() {
     Animated.sequence([
-      Animated.parallel([
-        Animated.timing(this.state.fadeAnim, { toValue: 0, duration: 300 }),
+        Animated.parallel([
+          Animated.timing(this.state.fadeAnim, { toValue: 0, duration: 300 }),
+          Animated.timing(this.state.positionAnim, {
+            toValue: posBase,
+            duration: 300
+          })
+        ]),
         Animated.timing(this.state.positionAnim, {
-          toValue: posBase,
-          duration: 300
+          toValue: -999,
+          duration: 0
         })
-      ]),
-      Animated.timing(this.state.positionAnim, {
-        toValue: -999,
-        duration: 0
-      })
-    ]).start();
+      ])
+      .start();
   }
 
   shouldComponentUpdate() {

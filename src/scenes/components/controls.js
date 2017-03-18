@@ -22,7 +22,7 @@ import {
 const SingleOption = props => {
   const { option } = props;
   return (
-    <ListItem>
+    <ListItem style={{ marginRight: 15 }}>
       <Left>
         <Text>
           {option.title}
@@ -38,7 +38,6 @@ const SingleOption = props => {
           }}
         />
       </Body>
-      <Right />
     </ListItem>
   );
 };

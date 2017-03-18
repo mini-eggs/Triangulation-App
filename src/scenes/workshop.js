@@ -101,8 +101,7 @@ export class WorkshopScene extends Component {
       return option;
     });
     this.setState(() => {
-      options:
-      resetOptions;
+      options: resetOptions;
     });
   }
 

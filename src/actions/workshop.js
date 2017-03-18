@@ -35,12 +35,17 @@ export const trianguleImage = (image, userOptions) => {
   const options = Object.assign({}, defaultTriangulationOptions, userOptions);
   const props = { image: image, options: options };
   return dispatch => {
-    const socket = io.connect(API.SOCKET, { transports: ["websocket"] });
+    const socket = io.connect(API.SOCKET, {
+      transports: ["websocket"],
+      forceNew: true
+    });
     socket.on("connect", () => {
       socket.on("triangly/triangulate/complete", data => {
+        socket.disconnect(); // discnonecting may prevent errors
         dispatch(setImage(data.image));
       });
       socket.on("triangly/triangulate/failure", err => {
+        socket.disconnect();
         dispatch(setMessage({ text: "Unexpected error", time: 2000 }));
         dispatch(setImage(undefined));
       });

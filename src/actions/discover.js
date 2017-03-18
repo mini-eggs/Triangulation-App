@@ -1,4 +1,5 @@
 import { showImagePicker } from "react-native-image-picker";
+import { setMessage } from "./modal";
 
 const ImagePickerOptions = {
   maxWidth: 1000,
@@ -32,11 +33,12 @@ export const chooseImage = () => {
     try {
       dispatch(setImage(await getImage()));
     } catch (err) {
-      console.log(err);
-      // TODO: figure this out
-      // or maybe not
-      // this most likely
-      // signifies user hit cancel
+      if (!err.didCancel) {
+        // we're assuming user did
+        // not permit usage of camera
+        // slash photos at this point
+        dispatch(setMessage({ text: "Check permissions", time: 2000 }));
+      }
     }
   };
 };

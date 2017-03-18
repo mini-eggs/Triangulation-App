@@ -1,9 +1,11 @@
 {
 	"name": "Triangly",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"scripts": {
-		"release-ios": "code-push release-react triangly-ios ios",
-		"release-android": "code-push release-react triangly-android android",
+		"prep-ios": "code-push release-react triangly-production-ios ios --plistFile \"ios/Triangly/Info.plist\" --mandatory",
+		"prep-android": "code-push release-react triangly-production-android android --mandatory",
+		"release-ios": "code-push promote triangly-production-ios Staging Production",
+		"release-android": "code-push promote triangly-production-android Staging Production",
 		"start-ios": "react-native run-ios",
 		"start-android": "react-native run-android",
 		"build-android": "cd android && ./gradlew assembleRelease && cd .. ",
