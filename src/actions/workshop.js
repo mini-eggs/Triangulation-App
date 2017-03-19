@@ -31,10 +31,21 @@ const defaultTriangulationOptions = {
   transparentColor: false
 };
 
+const setTime = time => {
+  return {
+    type: "SET_TIME",
+    payload: {
+      time: time
+    }
+  };
+};
+
 export const trianguleImage = (image, userOptions) => {
   const options = Object.assign({}, defaultTriangulationOptions, userOptions);
   const props = { image: image, options: options };
-  return dispatch => {
+  const currentTime = new Date().getTime(); // use current time to `version` requests
+  return (dispatch, getState) => {
+    dispatch(setTime(currentTime));
     const socket = io.connect(API.SOCKET, {
       transports: ["websocket"],
       forceNew: true
@@ -42,7 +53,11 @@ export const trianguleImage = (image, userOptions) => {
     socket.on("connect", () => {
       socket.on("triangly/triangulate/complete", data => {
         socket.disconnect(); // discnonecting may prevent errors
-        dispatch(setImage(data.image));
+        const { time } = getState().WorkshopReducer;
+        if (typeof time === "undefined" || currentTime === time) {
+          dispatch(setTime(undefined));
+          dispatch(setImage(data.image));
+        }
       });
       socket.on("triangly/triangulate/failure", err => {
         socket.disconnect();
