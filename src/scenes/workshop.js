@@ -24,6 +24,7 @@ import {
   Content
 } from "native-base";
 import FileSystem from "react-native-fs";
+import RNFetchBlob from "react-native-fetch-blob"; // only used to snan files on android
 import { Exhibit } from "./components/exhibit";
 import { Controls } from "./components/controls";
 
@@ -52,12 +53,14 @@ export class WorkshopScene extends Component {
         if (Platform.OS === "ios") {
           await CameraRoll.saveToCameraRoll(this.props.image);
         } else {
+          const dir = `${FileSystem.ExternalStorageDirectoryPath}/Pictures/Triangly/`;
+          const imageLoc = `${dir}${this.props.image.split("/").reverse()[0]}`;
+          await FileSystem.mkdir(dir);
           await FileSystem.downloadFile({
             fromUrl: this.props.image,
-            toFile: `${FileSystem.ExternalStorageDirectoryPath}/Pictures/${this.props.image
-              .split("/")
-              .reverse()[0]}`
+            toFile: imageLoc
           });
+          await RNFetchBlob.fs.scanFile([{ path: imageLoc }]);
         }
         this.props.setMessage({
           text: "Image has been saved",
