@@ -54,7 +54,7 @@ export class WorkshopScene extends Component {
         } else {
           await FileSystem.downloadFile({
             fromUrl: this.props.image,
-            toFile: `${FileSystem.ExternalStorageDirectoryPath}/Download/${this.props.image
+            toFile: `${FileSystem.ExternalStorageDirectoryPath}/Pictures/${this.props.image
               .split("/")
               .reverse()[0]}`
           });
