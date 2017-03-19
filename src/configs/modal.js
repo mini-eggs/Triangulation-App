@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Platform, View, Dimensions, Animated } from "react-native";
-import { Text, Left, Body, Right, Button } from "native-base";
+import { Text, Grid, Col, Button } from "native-base";
 import { connect } from "react-redux";
 import { ModalActions } from "../actions/";
 
@@ -16,9 +16,8 @@ const styles = {
   },
   Button: {
     flex: 1,
-    margin: 50,
-    marginBottom: 0,
-    marginTop: 0,
+    marginLeft: 15,
+    marginRight: 15,
     backgroundColor: "rgba(0,0,0,0.9)"
   }
 };
@@ -38,36 +37,34 @@ class ModalComponent extends Component {
 
   start() {
     Animated.sequence([
+      Animated.timing(this.state.positionAnim, {
+        toValue: posBase,
+        duration: 0
+      }),
+      Animated.parallel([
+        Animated.timing(this.state.fadeAnim, { toValue: 1, duration: 300 }),
         Animated.timing(this.state.positionAnim, {
-          toValue: posBase,
-          duration: 0
-        }),
-        Animated.parallel([
-          Animated.timing(this.state.fadeAnim, { toValue: 1, duration: 300 }),
-          Animated.timing(this.state.positionAnim, {
-            toValue: posBase + 10,
-            duration: 300
-          })
-        ])
+          toValue: posBase + 10,
+          duration: 300
+        })
       ])
-      .start();
+    ]).start();
   }
 
   remove() {
     Animated.sequence([
-        Animated.parallel([
-          Animated.timing(this.state.fadeAnim, { toValue: 0, duration: 300 }),
-          Animated.timing(this.state.positionAnim, {
-            toValue: posBase,
-            duration: 300
-          })
-        ]),
+      Animated.parallel([
+        Animated.timing(this.state.fadeAnim, { toValue: 0, duration: 300 }),
         Animated.timing(this.state.positionAnim, {
-          toValue: -999,
-          duration: 0
+          toValue: posBase,
+          duration: 300
         })
-      ])
-      .start();
+      ]),
+      Animated.timing(this.state.positionAnim, {
+        toValue: -999,
+        duration: 0
+      })
+    ]).start();
   }
 
   shouldComponentUpdate() {
@@ -105,11 +102,17 @@ class ModalComponent extends Component {
     });
     return (
       <Animated.View style={containerStyles}>
-        <Button full rounded style={styles.Button}>
-          <Text style={styles.Text}>
-            {this.state.message}
-          </Text>
-        </Button>
+        <Grid>
+          <Col style={{ flex: 0.15 }} />
+          <Col>
+            <Button full rounded style={styles.Button}>
+              <Text style={styles.Text}>
+                {this.state.message}
+              </Text>
+            </Button>
+          </Col>
+          <Col style={{ flex: 0.15 }} />
+        </Grid>
       </Animated.View>
     );
   }

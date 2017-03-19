@@ -93,9 +93,12 @@ export class WorkshopScene extends Component {
       }
       return newOption;
     });
-    this.setState((state, props) => {
-      return { options: updatedOptions };
-    });
+    this.setState(
+      () => {
+        return { options: updatedOptions };
+      },
+      this.triangulate
+    );
   }
 
   reset() {
@@ -103,9 +106,12 @@ export class WorkshopScene extends Component {
       option.value = this.state.initialOptionValues[index];
       return option;
     });
-    this.setState(() => {
-      options: resetOptions;
-    });
+    this.setState(
+      () => {
+        return { options: resetOptions };
+      },
+      this.triangulate
+    );
   }
 
   render() {
@@ -154,6 +160,7 @@ export class WorkshopScene extends Component {
           />
 
           <Grid style={{ margin: 10, marginTop: 20 }}>
+            <Col style={{ flex: 0.3 }} />
             <Col>
               <Button
                 full
@@ -167,21 +174,7 @@ export class WorkshopScene extends Component {
                 <Text> Reset </Text>
               </Button>
             </Col>
-            <Col>
-              <Button
-                full
-                style={{ margin: 10 }}
-                primary
-                rounded
-                onPress={() => {
-                  this.setState((state, props) => {
-                    this.triangulate();
-                  });
-                }}
-              >
-                <Text> Apply </Text>
-              </Button>
-            </Col>
+            <Col style={{ flex: 0.3 }} />
           </Grid>
 
           <View style={{ height: 100 }} />
