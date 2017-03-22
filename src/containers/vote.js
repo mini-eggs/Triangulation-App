@@ -1,10 +1,9 @@
 import { connect } from "react-redux";
-import { DiscoverActions, FirebaseActions } from "../actions/";
-import { DiscoverScene } from "../scenes/discover";
+import { FirebaseActions } from "../actions/";
+import { VoteScene } from "../scenes/vote";
 
 const stateToProps = state => {
   return {
-    images: state.FirebaseReducer.featured,
     image: state.DiscoverReducer.image
   };
 };
@@ -15,6 +14,4 @@ const actionsToProps = dispatch => {
   };
 };
 
-export const DiscoverContainer = connect(stateToProps, actionsToProps)(
-  DiscoverScene
-);
+export const VoteContainer = connect(stateToProps, actionsToProps)(VoteScene);

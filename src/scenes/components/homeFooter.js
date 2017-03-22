@@ -1,28 +1,44 @@
 import React from "react";
-import { Platform } from "react-native";
+import { Actions } from "react-native-router-flux";
+import { connect } from "react-redux";
+import { DiscoverActions } from "../../actions/";
 import { Footer, FooterTab, Button, Icon, Text } from "native-base";
 
-const styles = {
-  Icon: {}
-};
+function FooterComponent({ activeIndex, chooseImage }) {
+  const buttons = [
+    { onPress: Actions.vote, icon: "md-create", text: "Vote" },
+    { onPress: Actions.discover, icon: "md-star", text: "Featured" },
+    { onPress: chooseImage, icon: "md-camera", text: "Create" },
+    { onPress: Actions.about, icon: "md-information-circle", text: "About" }
+  ];
 
-export function HomeFooter({ icons = [] }) {
   return (
     <Footer style={{ borderColor: "transparent" }}>
       <FooterTab>
-        <Button {...icons[0]}>
-          <Icon name="md-time" style={styles.Icon} />
-          <Text>Recent</Text>
-        </Button>
-        <Button {...icons[1]}>
-          <Icon name="md-star" style={styles.Icon} />
-          <Text>Featured</Text>
-        </Button>
-        <Button {...icons[2]}>
-          <Icon name="md-camera" style={styles.Icon} />
-          <Text>Create</Text>
-        </Button>
+        {buttons.map((button, index) => {
+          return (
+            <Button
+              key={index}
+              active={index === activeIndex}
+              onPress={button.onPress}
+            >
+              <Icon name={button.icon} />
+              <Text>{button.text}</Text>
+            </Button>
+          );
+        })}
       </FooterTab>
     </Footer>
   );
 }
+
+export const HomeFooter = connect(
+  () => {
+    return {};
+  },
+  dispatch => {
+    return {
+      chooseImage: () => dispatch(DiscoverActions.chooseImage())
+    };
+  }
+)(FooterComponent);

@@ -29,6 +29,8 @@ import ActionSheet from "react-native-actionsheet";
 import RNFetchBlob from "react-native-fetch-blob"; // only used to snan files on android
 import { Exhibit } from "./components/exhibit";
 import { Controls } from "./components/controls";
+import { HeaderText } from "./components/headerText";
+import { HeaderContainer } from "./components/headerContainer";
 
 export class WorkshopScene extends Component {
   constructor(props) {
@@ -147,6 +149,10 @@ export class WorkshopScene extends Component {
         break;
       }
       case 1: {
+        alert("submit for voting");
+        break;
+      }
+      case 2: {
         this.download();
         break;
       }
@@ -160,7 +166,7 @@ export class WorkshopScene extends Component {
     return (
       <Container>
 
-        <Header noShadow>
+        <HeaderContainer>
           <Left>
             <Button
               transparent
@@ -171,17 +177,13 @@ export class WorkshopScene extends Component {
               <Icon style={{ color: "#000" }} name="arrow-back" />
             </Button>
           </Left>
-          <Body>
-            <Title>
-              Edit
-            </Title>
-          </Body>
+          <HeaderText title="Triangly" subtitle="Edit" />
           <Right>
             <Button transparent onPress={this.menuPress}>
               <Icon style={{ color: "#000" }} name="md-more" />
             </Button>
           </Right>
-        </Header>
+        </HeaderContainer>
 
         <Content>
 
@@ -220,8 +222,8 @@ export class WorkshopScene extends Component {
 
         <ActionSheet
           ref={o => this.ActionSheet = o}
-          options={["Share", "Download", "Cancel"]}
-          cancelButtonIndex={2}
+          options={["Share", "Submit for voting", "Download", "Cancel"]}
+          cancelButtonIndex={3}
           onPress={this.menuOptions}
         />
 

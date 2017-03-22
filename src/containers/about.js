@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
-import { DiscoverActions, FirebaseActions } from "../actions/";
-import { DiscoverScene } from "../scenes/discover";
+import { FirebaseActions } from "../actions/";
+import { AboutScene } from "../scenes/about";
+
+// TODO: move this into a firebase layer
 
 const stateToProps = state => {
   return {
-    images: state.FirebaseReducer.featured,
     image: state.DiscoverReducer.image
   };
 };
@@ -15,6 +16,4 @@ const actionsToProps = dispatch => {
   };
 };
 
-export const DiscoverContainer = connect(stateToProps, actionsToProps)(
-  DiscoverScene
-);
+export const AboutContainer = connect(stateToProps, actionsToProps)(AboutScene);

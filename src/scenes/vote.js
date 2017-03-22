@@ -4,20 +4,18 @@ import { HomeScreen } from "./components/homeScreen";
 import { HomeFooter } from "./components/homeFooter";
 import { HeaderText } from "./components/headerText";
 import { HeaderContainer } from "./components/headerContainer";
-import { DiscoverCube } from "./components/cube";
 
-export class DiscoverScene extends HomeScreen {
+export class VoteScene extends HomeScreen {
   render() {
     return (
       <Container>
         <HeaderContainer>
           <Left />
-          <HeaderText title="Triangly" subtitle="Featured" />
+          <HeaderText title="Triangly" subtitle="Vote" />
           <Right />
         </HeaderContainer>
         <Content />
-        <DiscoverCube images={this.props.images} />
-        <HomeFooter activeIndex={1} />
+        <HomeFooter activeIndex={0} />
       </Container>
     );
   }
