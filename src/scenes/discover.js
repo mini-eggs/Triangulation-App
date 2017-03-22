@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Content, Left, Right } from "native-base";
+import { Container, Left, Right } from "native-base";
 import { HomeScreen } from "./components/homeScreen";
 import { HomeFooter } from "./components/homeFooter";
 import { HeaderText } from "./components/headerText";
@@ -15,7 +15,6 @@ export class DiscoverScene extends HomeScreen {
           <HeaderText title="Triangly" subtitle="Featured" />
           <Right />
         </HeaderContainer>
-        <Content />
         <DiscoverCube images={this.props.images} />
         <HomeFooter activeIndex={1} />
       </Container>

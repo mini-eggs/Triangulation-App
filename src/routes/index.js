@@ -11,7 +11,7 @@ export const RoutingLayer = () => {
       <Scene key="root">
         <Scene type="replace" hideNavBar key="discover" component={Discover} />
         <Scene type="replace" hideNavBar key="vote" component={Vote} />
-        <Scene hideNavBar key="workshop" component={Workshop} />
+        <Scene type="push" key="workshop" hideNavBar component={Workshop} />
         <Scene type="replace" hideNavBar key="about" component={About} />
       </Scene>
     </Router>

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from "react";
-import { Dimensions, PanResponder, View, Image } from "react-native";
+import { Dimensions, PanResponder, View, Image, Animated } from "react-native";
+import { Spinner } from "native-base";
 import { Cube } from "../../utilities/";
 const { transformOrigin, rotateXY, rotateXZ } = Cube;
 
@@ -11,7 +12,7 @@ const styles = {
   container: {
     position: "absolute",
     left: (width - squareSize) / 2,
-    top: (height - squareSize) / 2,
+    top: (height - squareSize) / 2.75,
     width: squareSize,
     height: squareSize,
     backgroundColor: "transparent"
@@ -31,12 +32,20 @@ class CubeContainer extends Component {
     super(props);
     this.state = {
       dx: 0,
-      dy: 0
+      dy: 0,
+      auto: true,
+      autoInterval: false, // this will be used to clear interval
+      fadeAnim: new Animated.Value(0)
     };
   }
 
   componentDidMount() {
-    this.handlePanResponderMove(null, this.state);
+    this.handlePanResponderMove(null, this.state, true);
+    this.autoRotate();
+    Animated.timing(this.state.fadeAnim, {
+      toValue: 1,
+      duration: 1000
+    }).start();
   }
 
   componentWillMount() {
@@ -52,10 +61,46 @@ class CubeContainer extends Component {
     });
   }
 
-  handlePanResponderMove(e, gestureState) {
+  autoRotate() {
+    if (this.state.auto) {
+      const autoInterval = setInterval(
+        () => {
+          this.setState(
+            state => {
+              return { dx: state.dx + 0.25 };
+            },
+            () => {
+              this.handlePanResponderMove(null, { dx: 1, dy: 0 }, true);
+            }
+          );
+        },
+        10
+      );
+      this.setState(() => {
+        return { autoInterval: autoInterval };
+      });
+    } else if (this.state.autoInterval) {
+      clearInterval(this.state.autoInterval);
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.autoInterval);
+  }
+
+  handlePanResponderMove(e, gestureState, auto = false) {
+    if (!auto && this.state.auto) {
+      this.setState(
+        () => {
+          return { auto: false };
+        },
+        this.autoRotate
+      );
+    }
+
     const origin = { x: 0, y: 0, z: squareSize / -2 };
     const dx = gestureState.dx + this.state.dx - 45;
-    const dy = gestureState.dy + this.state.dy - 45;
+    const dy = gestureState.dy + this.state.dy + 20;
 
     let matrix = rotateXY(dx, dy);
     transformOrigin(matrix, origin);
@@ -168,29 +213,66 @@ class CubeContainer extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Animated.View
+        style={[styles.container, { opacity: this.state.fadeAnim }]}
+      >
         {this.renderBack(this.props.images[0])}
         {this.renderLeft(this.props.images[1])}
         {this.renderRight(this.props.images[2])}
         {this.renderTop(this.props.images[3])}
         {this.renderBottom(this.props.images[4])}
         {this.renderFront(this.props.images[5])}
-      </View>
+      </Animated.View>
     );
   }
 }
 
 export class DiscoverCube extends Component {
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps);
+  constructor(props) {
+    super(props);
+    this.state = {
+      fadeAnim: new Animated.Value(1),
+      cubeFade: new Animated.Value(0),
+      show: false
+    };
   }
 
-  renderCube(images) {
-    return <CubeContainer images={images} />;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.images.length >= 3) {
+      Animated.timing(this.state.fadeAnim, {
+        toValue: 0,
+        duration: 1000
+      }).start();
+      setTimeout(
+        () => {
+          this.setState({
+            show: true
+          });
+        },
+        1000
+      );
+    }
   }
 
   render() {
     const images = [...this.props.images, ...this.props.images];
-    return images.length >= 6 ? this.renderCube(images) : <View />;
+    return this.state.show
+      ? <View
+          style={{
+            flex: 1
+          }}
+        >
+          <CubeContainer images={images} />
+        </View>
+      : <Animated.View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            opacity: this.state.fadeAnim
+          }}
+        >
+          <Spinner color="#000" />
+        </Animated.View>;
   }
 }
