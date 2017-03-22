@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import { Actions } from "react-native-router-flux";
-import { Platform } from "react-native";
 import {
   Container,
   Icon,
@@ -10,59 +9,40 @@ import {
   Button,
   Body,
   Title,
+  Subtitle,
   Right,
-  FooterTab
+  FooterTab,
+  Tab,
+  Tabs,
+  Text,
+  Content
 } from "native-base";
-import { DiscoverSwiper } from "./components/swiper";
+import { HomeScreen } from "./components/homeScreen";
+import { HomeFooter } from "./components/homeFooter";
+import { HeaderText } from "./components/headerText";
+import { DiscoverCube } from "./components/cube";
 
-export class DiscoverScene extends Component {
-  componentDidMount() {
-    this.props.getFeaturedImages();
-  }
-
-  /**
-   * Check if we should go to workshop component
-   */
-  componentDidUpdate() {
-    if (typeof this.props.image === "string") {
-      Actions.workshop();
-    }
-  }
-
+export class DiscoverScene extends HomeScreen {
   render() {
     return (
       <Container>
 
-        <Header noShadow>
+        <Header
+          noShadow
+          style={{ borderColor: "transparent", borderBottomWidth: 0 }}
+        >
           <Left />
-          <Body>
-            <Title>
-              Triangly
-            </Title>
-          </Body>
+          <HeaderText title="Triangly" subtitle="Featured" />
           <Right />
         </Header>
 
-        <DiscoverSwiper images={this.props.images} />
+        <Content />
 
-        <Footer>
-          <FooterTab>
-            <Button
-              transparent
-              onPress={() => {
-                this.props.chooseImage();
-              }}
-            >
-              <Icon
-                name="md-camera"
-                style={{
-                  color: "#000",
-                  marginTop: Platform.OS === "ios" ? 0 : -15
-                }}
-              />
-            </Button>
-          </FooterTab>
-        </Footer>
+        <DiscoverCube images={this.props.images} />
+
+        <HomeFooter
+          icons={[{}, { active: true }, { onPress: this.props.chooseImage }]}
+        />
 
       </Container>
     );

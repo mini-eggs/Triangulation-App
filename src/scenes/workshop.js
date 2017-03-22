@@ -5,7 +5,8 @@ import {
   Dimensions,
   View,
   TouchableHighlight,
-  Platform
+  Platform,
+  Share
 } from "react-native";
 import {
   Container,
@@ -24,6 +25,7 @@ import {
   Content
 } from "native-base";
 import FileSystem from "react-native-fs";
+import ActionSheet from "react-native-actionsheet";
 import RNFetchBlob from "react-native-fetch-blob"; // only used to snan files on android
 import { Exhibit } from "./components/exhibit";
 import { Controls } from "./components/controls";
@@ -114,6 +116,46 @@ export class WorkshopScene extends Component {
     );
   }
 
+  async share() {
+    try {
+      const options = {
+        message: `I made this image with the Triangly app! 🔺 ${this.props.image}`,
+        title: "🔺🔻🔺 Triangly! 🔺🔻🔺"
+      };
+      const details = {
+        dialogTitle: "Share your Triangly image"
+      };
+      const shareData = await Share.share(options, details);
+    } catch (err) {
+      this.props.setMessage({
+        text: "Unexpected error",
+        time: 1250
+      });
+    }
+  }
+
+  menuPress = () => {
+    if (this.props.image) {
+      this.ActionSheet.show();
+    }
+  };
+
+  menuOptions = option => {
+    switch (option) {
+      case 0: {
+        this.share();
+        break;
+      }
+      case 1: {
+        this.download();
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  };
+
   render() {
     return (
       <Container>
@@ -135,13 +177,8 @@ export class WorkshopScene extends Component {
             </Title>
           </Body>
           <Right>
-            <Button
-              transparent
-              onPress={() => {
-                this.download();
-              }}
-            >
-              <Icon style={{ color: "#000" }} name="md-download" />
+            <Button transparent onPress={this.menuPress}>
+              <Icon style={{ color: "#000" }} name="md-more" />
             </Button>
           </Right>
         </Header>
@@ -180,6 +217,13 @@ export class WorkshopScene extends Component {
           <View style={{ height: 100 }} />
 
         </Content>
+
+        <ActionSheet
+          ref={o => this.ActionSheet = o}
+          options={["Share", "Download", "Cancel"]}
+          cancelButtonIndex={2}
+          onPress={this.menuOptions}
+        />
 
       </Container>
     );

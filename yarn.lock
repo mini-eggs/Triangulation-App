@@ -2545,6 +2545,10 @@ react-mixin@^3.0.5:
     object-assign "^4.0.1"
     smart-mixin "^2.0.0"
 
+react-native-actionsheet@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-actionsheet/-/react-native-actionsheet-2.0.6.tgz#80402b1186948a84177eb17f19cc99c17922b785"
+
 react-native-code-push@^1.17.2-beta:
   version "1.17.2-beta"
   resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-1.17.2-beta.tgz#fad25527baed8fa5922fbbdbe9ac72f78f019073"
