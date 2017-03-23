@@ -50,12 +50,12 @@ class Card extends Component {
 class Empty extends Component {
   constructor(props) {
     super(props);
-    this.state = { fade: new Animated.Value(0) };
+    this.state = { fade: new Animated.Value(0), text: this.getRandomText() };
   }
   componentDidMount() {
     Animated.timing(this.state.fade, {
       toValue: 1,
-      duration: 250
+      duration: 500
     }).start();
   }
   getRandomText() {
@@ -74,7 +74,7 @@ class Empty extends Component {
   render() {
     return (
       <Animated.View style={{ opacity: this.state.fade }}>
-        <Text>{this.getRandomText()}</Text>
+        <Text>{this.state.text}</Text>
       </Animated.View>
     );
   }
