@@ -8,17 +8,15 @@ const styles = {
   ToastContainer: {
     position: "absolute",
     zIndex: 99,
-    flexDirection: "row"
+    width: Dimensions.get("window").width,
+    alignItems: "center"
+  },
+  Button: {
+    backgroundColor: "rgba(0,0,0,0.9)"
   },
   Text: {
     color: "white",
     textAlign: "center"
-  },
-  Button: {
-    flex: 1,
-    marginLeft: 15,
-    marginRight: 15,
-    backgroundColor: "rgba(0,0,0,0.9)"
   }
 };
 
@@ -102,17 +100,13 @@ class ModalComponent extends Component {
     });
     return (
       <Animated.View style={containerStyles}>
-        <Grid>
-          <Col style={{ flex: 0.15 }} />
-          <Col>
-            <Button full rounded style={styles.Button}>
-              <Text style={styles.Text}>
-                {this.state.message}
-              </Text>
-            </Button>
-          </Col>
-          <Col style={{ flex: 0.15 }} />
-        </Grid>
+        <View>
+          <Button rounded style={styles.Button}>
+            <Text style={styles.Text}>
+              {this.state.message}
+            </Text>
+          </Button>
+        </View>
       </Animated.View>
     );
   }
