@@ -12,7 +12,7 @@ export class DiscoverScene extends HomeScreen {
       <Container>
         <HeaderContainer>
           <Left />
-          <HeaderText title="Triangly" subtitle="Featured" />
+          <HeaderText title="Triangly" subtitle="Top" />
           <Right />
         </HeaderContainer>
         <DiscoverCube images={this.props.images} />

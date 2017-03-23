@@ -7,7 +7,7 @@ import { Footer, FooterTab, Button, Icon, Text } from "native-base";
 function FooterComponent({ activeIndex, chooseImage }) {
   const buttons = [
     { onPress: Actions.vote, icon: "md-create", text: "Vote" },
-    { onPress: Actions.discover, icon: "md-star", text: "Featured" },
+    { onPress: Actions.discover, icon: "md-star", text: "Top" },
     { onPress: chooseImage, icon: "md-camera", text: "Create" },
     { onPress: Actions.about, icon: "md-information-circle", text: "About" }
   ];

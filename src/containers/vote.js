@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { FirebaseActions } from "../actions/";
+import { FirebaseActions, ModalActions } from "../actions/";
 import { VoteScene } from "../scenes/vote";
 
 const stateToProps = state => {
@@ -10,6 +10,7 @@ const stateToProps = state => {
 
 const actionsToProps = dispatch => {
   return {
+    setMessage: message => dispatch(ModalActions.setMessage(message)),
     getFeaturedImages: () => dispatch(FirebaseActions.getFeaturedImages())
   };
 };

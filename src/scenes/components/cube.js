@@ -238,6 +238,7 @@ export class DiscoverCube extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // TODO: You know what to do
     if (nextProps.images.length >= 3) {
       Animated.timing(this.state.fadeAnim, {
         toValue: 0,

@@ -39,7 +39,7 @@ export class AboutScene extends HomeScreen {
           </H2>
           <SmallSpace />
           <Text>
-            Navigate to the Vote tab and vote on other user's photos. The top six will appear on the Featured tab's cube.
+            Navigate to the Vote tab and vote on other user's photos. The top six will appear on the Top tab's cube.
           </Text>
         </View>
       </Content>
