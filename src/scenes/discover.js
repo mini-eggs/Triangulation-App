@@ -5,18 +5,16 @@ import { HeaderText } from "./components/headerText";
 import { HeaderContainer } from "./components/headerContainer";
 import { DiscoverCube } from "./components/cube";
 
-export class DiscoverScene extends Component {
-  render() {
-    return (
-      <Container>
-        <HeaderContainer>
-          <Left />
-          <HeaderText title="Triangly" subtitle="Top" />
-          <Right />
-        </HeaderContainer>
-        <DiscoverCube images={this.props.images} />
-        <HomeFooter activeIndex={1} />
-      </Container>
-    );
-  }
+export function DiscoverScene({ images }) {
+  return (
+    <Container>
+      <HeaderContainer>
+        <Left />
+        <HeaderText title="Triangly" subtitle="Top" />
+        <Right />
+      </HeaderContainer>
+      <DiscoverCube images={images} />
+      <HomeFooter activeIndex={1} />
+    </Container>
+  );
 }

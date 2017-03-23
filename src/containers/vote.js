@@ -4,7 +4,9 @@ import { VoteScene } from "../scenes/vote";
 
 const stateToProps = state => {
   return {
-    recent: state.FirebaseReducer.voteImagesRecentEligible
+    recent: state.FirebaseReducer.voteImagesRecentEligible,
+    top: state.FirebaseReducer.voteImagesTopEligible,
+    yours: state.FirebaseReducer.voteImagesYoursEligible
   };
 };
 

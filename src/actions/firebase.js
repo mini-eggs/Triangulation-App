@@ -99,13 +99,18 @@ function sortImagesByEligible(voteImages) {
 }
 
 export function setVoteImages(voteImages) {
+  const recent = voteImages.reverse();
+  const top = sortImagesByTop(voteImages);
+  const yours = sortImagesByYours(voteImages);
   return {
     type: "SET_VOTE_IMAGES_FIREBASE",
     payload: {
-      voteImagesRecent: voteImages.reverse(),
-      voteImagesRecentEligible: sortImagesByEligible(voteImages.reverse()),
-      voteImagesTop: sortImagesByTop(voteImages),
-      voteImagesYours: sortImagesByYours(voteImages)
+      voteImagesRecent: recent,
+      voteImagesRecentEligible: sortImagesByEligible(recent),
+      voteImagesTop: top,
+      voteImagesTopEligible: sortImagesByEligible(top),
+      voteImagesYours: yours,
+      voteImagesYoursEligible: sortImagesByEligible(yours)
     }
   };
 }

@@ -4,7 +4,9 @@ const initialState = {
   voteImagesRecent: [],
   voteImagesRecentEligible: [],
   voteImagesTop: [],
-  voteImagesYours: []
+  voteImagesTopEligible: [],
+  voteImagesYours: [],
+  voteImagesYoursEligible: []
 };
 
 export const FirebaseReducer = (state = initialState, action) => {

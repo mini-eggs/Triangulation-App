@@ -58,10 +58,23 @@ class Empty extends Component {
       duration: 250
     }).start();
   }
+  getRandomText() {
+    let text = [
+      "Nothing more to see here 🙃",
+      "Empty! 😱",
+      "Where did they go? 🦑",
+      "We can't seem to find anymore 👀",
+      "The 🌎 is a very small place after all"
+    ];
+    text = text.concat(text);
+    text = text.concat(text);
+    text = text.concat(text);
+    return text[Math.round(Math.random() * text.length)];
+  }
   render() {
     return (
       <Animated.View style={{ opacity: this.state.fade }}>
-        <Text>That's it for now 🙃</Text>
+        <Text>{this.getRandomText()}</Text>
       </Animated.View>
     );
   }

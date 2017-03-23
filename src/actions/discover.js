@@ -2,9 +2,9 @@ import { showImagePicker } from "react-native-image-picker";
 import { setMessage } from "./modal";
 
 const ImagePickerOptions = {
-  maxWidth: 1000,
-  maxHeight: 1000,
-  quality: 0.1
+  maxWidth: 1200,
+  maxHeight: 1200,
+  quality: 1
 };
 
 export const setImage = image => {

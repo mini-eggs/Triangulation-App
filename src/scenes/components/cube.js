@@ -59,21 +59,20 @@ class CubeContainer extends Component {
     });
   }
 
+  rotate = () => {
+    this.setState(
+      state => {
+        return { dx: state.dx + 0.25 };
+      },
+      () => {
+        this.handlePanResponderMove(null, { dx: 1, dy: 0 }, true);
+      }
+    );
+  };
+
   autoRotate() {
     if (this.state.auto) {
-      const autoInterval = setInterval(
-        () => {
-          this.setState(
-            state => {
-              return { dx: state.dx + 0.25 };
-            },
-            () => {
-              this.handlePanResponderMove(null, { dx: 1, dy: 0 }, true);
-            }
-          );
-        },
-        10
-      );
+      const autoInterval = setInterval(this.rotate, 10);
       this.setState(() => {
         return { autoInterval: autoInterval };
       });
@@ -83,6 +82,7 @@ class CubeContainer extends Component {
   }
 
   componentWillUnmount() {
+    this.rotate = () => {};
     clearInterval(this.state.autoInterval);
   }
 
