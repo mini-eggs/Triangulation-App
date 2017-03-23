@@ -1,44 +1,70 @@
 import React, { Component } from "react";
-import { View, Image, Dimensions } from "react-native";
-import { Text, Container, Badge, Grid, Row, Right } from "native-base";
-import FadeIn from "@expo/react-native-fade-in-image";
+import { View, Image, Dimensions, Animated } from "react-native";
+import { Container, Text } from "native-base";
 import SwipeCards from "react-native-swipe-cards";
 
-const placeholder = "https://i.imgur.com/kcbFmVSm.jpg";
-
-const Cards = [
-  { text: "Tomato", backgroundColor: "red", score: 59 },
-  { text: "Aubergine", backgroundColor: "purple", score: 59 },
-  { text: "Courgette", backgroundColor: "green", score: 59 },
-  { text: "Blueberry", backgroundColor: "blue", score: 59 },
-  { text: "Umm...", backgroundColor: "cyan", score: 59 },
-  { text: "orange", backgroundColor: "orange", score: 51 }
-];
+// fix the swipe cards module
+alert = () => {};
 
 const width = Dimensions.get("window").width;
 const offset = (Dimensions.get("window").height - width) / 2 - 100;
 
-function Card({ score, backgroundColor }) {
-  return (
-    <FadeIn
-      placeholderStyle={{
-        backgroundColor: "transparent"
-      }}
-      style={{
-        backgroundColor: "transparent"
-      }}
-    >
-      <Image
-        style={{ height: width, width: width }}
-        resizeMode="cover"
-        source={{ uri: placeholder }}
-      />
-    </FadeIn>
-  );
+const styles = {
+  FadeIn: {
+    backgroundColor: "transparent"
+  },
+  Image: {
+    height: width,
+    width: width,
+    backgroundColor: "white"
+  }
+};
+
+class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { fade: new Animated.Value(0) };
+  }
+  fadeIn = () => {
+    Animated.timing(this.state.fade, {
+      toValue: 1,
+      duration: 250
+    }).start();
+  };
+  render() {
+    return (
+      <View style={{ backgroundColor: "white" }}>
+        <Animated.View style={{ opacity: this.state.fade }}>
+          <Image
+            onLoadEnd={this.fadeIn}
+            style={styles.Image}
+            resizeMode="cover"
+            source={{ uri: this.props.image }}
+          />
+        </Animated.View>
+      </View>
+    );
+  }
 }
 
-function NoMoreCards() {
-  return <Text>No more cards</Text>;
+class Empty extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { fade: new Animated.Value(0) };
+  }
+  componentDidMount() {
+    Animated.timing(this.state.fade, {
+      toValue: 1,
+      duration: 250
+    }).start();
+  }
+  render() {
+    return (
+      <Animated.View style={{ opacity: this.state.fade }}>
+        <Text>That's it for now 🙃</Text>
+      </Animated.View>
+    );
+  }
 }
 
 export class VoteSwiper extends Component {
@@ -65,20 +91,26 @@ export class VoteSwiper extends Component {
   };
 
   onSwipeLeft = card => {
-    console.log("left");
+    this.props.incrementScore(card, 0);
   };
 
   onSwipeRight = card => {
-    console.log("right");
+    this.props.incrementScore(card, 1);
   };
 
   CoolWord() {
-    const words = ["Woah!", "Awesome!", "Like", "Reblog", "Fav", "OMG"];
+    let words = ["Woah!", "Awesome!", "Like", "Reblog", "Fav", "OMG"];
+    words = words.concat(words);
+    words = words.concat(words);
+    words = words.concat(words);
     return words[Math.round(Math.random() * words.length)];
   }
 
   LameWord() {
-    const words = ["Lame", "Yikes", "Uhh", "Weird", "No way!", "Ugh"];
+    let words = ["Lame", "Yikes", "Uhh", "Weird", "No way!", "Ugh"];
+    words = words.concat(words);
+    words = words.concat(words);
+    words = words.concat(words);
     return words[Math.round(Math.random() * words.length)];
   }
 
@@ -90,9 +122,9 @@ export class VoteSwiper extends Component {
           stack={true}
           stackOffsetX={0}
           stackOffsetY={0}
-          cards={Cards}
-          renderCard={Card}
-          renderNoMoreCards={NoMoreCards}
+          cards={this.props.cards}
+          renderCard={props => <Card {...props} />}
+          renderNoMoreCards={() => <Empty />}
           handleNope={this.onSwipeLeft}
           handleYup={this.onSwipeRight}
           cardRemoved={this.chooseWords}
@@ -100,6 +132,7 @@ export class VoteSwiper extends Component {
           showNope={true}
           showMaybe={false}
           hasMaybeAction={false}
+          dragY={false}
           nopeText={this.state.LameWord}
           yupText={this.state.CoolWord}
         />

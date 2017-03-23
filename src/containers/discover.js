@@ -4,15 +4,12 @@ import { DiscoverScene } from "../scenes/discover";
 
 const stateToProps = state => {
   return {
-    images: state.FirebaseReducer.featured,
-    image: state.DiscoverReducer.image
+    images: state.FirebaseReducer.voteImagesTop.map(item => item.image)
   };
 };
 
 const actionsToProps = dispatch => {
-  return {
-    getFeaturedImages: () => dispatch(FirebaseActions.getFeaturedImages())
-  };
+  return {};
 };
 
 export const DiscoverContainer = connect(stateToProps, actionsToProps)(

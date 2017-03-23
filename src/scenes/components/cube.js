@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { Dimensions, PanResponder, View, Image, Animated } from "react-native";
 import { Spinner } from "native-base";
-import { Cube } from "../../utilities/";
+import { Cube, fixImages } from "../../utilities/";
 const { transformOrigin, rotateXY, rotateXZ } = Cube;
 
 const height = Dimensions.get("window").height;
@@ -18,6 +18,7 @@ const styles = {
     backgroundColor: "transparent"
   },
   rectangle: {
+    backgroundColor: "white",
     position: "absolute",
     left: 0,
     top: 0,
@@ -35,17 +36,14 @@ class CubeContainer extends Component {
       dy: 0,
       auto: true,
       autoInterval: false, // this will be used to clear interval
-      fadeAnim: new Animated.Value(0)
+      fadeAnim: new Animated.Value(0),
+      loaded: 0
     };
   }
 
   componentDidMount() {
     this.handlePanResponderMove(null, this.state, true);
     this.autoRotate();
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 1,
-      duration: 1000
-    }).start();
   }
 
   componentWillMount() {
@@ -142,6 +140,7 @@ class CubeContainer extends Component {
   renderLeft(image) {
     return (
       <Image
+        onLoadEnd={this.onLoadEnd}
         ref={component => this.refViewRight = component}
         style={styles.rectangle}
         resizeMode="cover"
@@ -154,6 +153,7 @@ class CubeContainer extends Component {
   renderRight(image) {
     return (
       <Image
+        onLoadEnd={this.onLoadEnd}
         ref={component => this.refViewLeft = component}
         style={styles.rectangle}
         resizeMode="cover"
@@ -166,6 +166,7 @@ class CubeContainer extends Component {
   renderFront(image) {
     return (
       <Image
+        onLoadEnd={this.onLoadEnd}
         ref={component => this.refViewFront = component}
         style={styles.rectangle}
         resizeMode="cover"
@@ -178,6 +179,7 @@ class CubeContainer extends Component {
   renderBack(image) {
     return (
       <Image
+        onLoadEnd={this.onLoadEnd}
         ref={component => this.refViewBack = component}
         style={styles.rectangle}
         resizeMode="cover"
@@ -190,6 +192,7 @@ class CubeContainer extends Component {
   renderTop(image) {
     return (
       <Image
+        onLoadEnd={this.onLoadEnd}
         ref={component => this.refViewTop = component}
         style={styles.rectangle}
         resizeMode="cover"
@@ -202,6 +205,7 @@ class CubeContainer extends Component {
   renderBottom(image) {
     return (
       <Image
+        onLoadEnd={this.onLoadEnd}
         ref={component => this.refViewBottom = component}
         style={styles.rectangle}
         resizeMode="cover"
@@ -210,6 +214,22 @@ class CubeContainer extends Component {
       />
     );
   }
+
+  onLoadEnd = () => {
+    this.setState(
+      state => {
+        return { loaded: state.loaded + 1 };
+      },
+      () => {
+        if (this.state.loaded === 6) {
+          Animated.timing(this.state.fadeAnim, {
+            toValue: 1,
+            duration: 250
+          }).start();
+        }
+      }
+    );
+  };
 
   render() {
     return (
@@ -233,16 +253,23 @@ export class DiscoverCube extends Component {
     this.state = {
       fadeAnim: new Animated.Value(1),
       cubeFade: new Animated.Value(0),
-      show: false
+      show: props.images.length >= 6
     };
   }
 
+  componentDidMount() {
+    this.checkShow(this.props);
+  }
+
   componentWillReceiveProps(nextProps) {
-    // TODO: You know what to do
-    if (nextProps.images.length >= 3) {
+    this.checkShow(nextProps);
+  }
+
+  checkShow(props) {
+    if (props.images.length >= 6) {
       Animated.timing(this.state.fadeAnim, {
         toValue: 0,
-        duration: 1000
+        duration: 250
       }).start();
       setTimeout(
         () => {
@@ -250,7 +277,7 @@ export class DiscoverCube extends Component {
             show: true
           });
         },
-        1000
+        250
       );
     }
   }
@@ -263,7 +290,7 @@ export class DiscoverCube extends Component {
             flex: 1
           }}
         >
-          <CubeContainer images={images} />
+          <CubeContainer images={fixImages(images)} />
         </View>
       : <Animated.View
           style={{

@@ -1,5 +1,10 @@
 import { connect } from "react-redux";
-import { DiscoverActions, WorkshopActions, ModalActions } from "../actions/";
+import {
+  DiscoverActions,
+  WorkshopActions,
+  ModalActions,
+  FirebaseActions
+} from "../actions/";
 import { WorkshopScene } from "../scenes/workshop";
 
 const stateToProps = state => {
@@ -18,7 +23,8 @@ const actionsToProps = dispatch => {
     },
     removeInitialImage: () => dispatch(DiscoverActions.setImage(undefined)),
     trianguleImage: (image, options) =>
-      dispatch(WorkshopActions.trianguleImage(image, options))
+      dispatch(WorkshopActions.trianguleImage(image, options)),
+    submitVote: image => dispatch(FirebaseActions.submitVote(image))
   };
 };
 

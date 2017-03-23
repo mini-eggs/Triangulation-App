@@ -149,7 +149,7 @@ export class WorkshopScene extends Component {
         break;
       }
       case 1: {
-        alert("submit for voting");
+        this.props.submitVote(this.props.image);
         break;
       }
       case 2: {
@@ -222,7 +222,7 @@ export class WorkshopScene extends Component {
 
         <ActionSheet
           ref={o => this.ActionSheet = o}
-          options={["Share", "Submit for voting", "Download", "Cancel"]}
+          options={["Share", "Submit for Voting", "Download", "Cancel"]}
           cancelButtonIndex={3}
           onPress={this.menuOptions}
         />

@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import { View } from "react-native";
 import { Container, Content, Left, Right, H1, H2, Text } from "native-base";
-import { HomeScreen } from "./components/homeScreen";
 import { HomeFooter } from "./components/homeFooter";
 import { HeaderText } from "./components/headerText";
 import { HeaderContainer } from "./components/headerContainer";
@@ -9,7 +8,7 @@ import { HeaderContainer } from "./components/headerContainer";
 const BigSpace = () => <View style={{ height: 25 }} />;
 const SmallSpace = () => <View style={{ height: 10 }} />;
 
-export class AboutScene extends HomeScreen {
+export class AboutScene extends Component {
   content() {
     return (
       <Content>

@@ -14,11 +14,13 @@
 	"dependencies": {
 		"@expo/react-native-fade-in-image": "^1.1.1",
 		"firebase": "^3.7.1",
+		"lodash": "^4.17.4",
 		"native-base": "^2.0.12",
 		"react": "~15.4.1",
 		"react-native": "0.42.0",
 		"react-native-actionsheet": "^2.0.6",
 		"react-native-code-push": "^1.17.2-beta",
+		"react-native-device-info": "^0.10.1",
 		"react-native-fetch-blob": "^0.10.2",
 		"react-native-fs": "^2.1.0-rc.1",
 		"react-native-image-picker": "^0.26.0",
