@@ -5,9 +5,7 @@ import { AboutScene } from "../scenes/about";
 // TODO: move this into a firebase layer
 
 const stateToProps = state => {
-  return {
-    image: state.DiscoverReducer.image
-  };
+  return {};
 };
 
 const actionsToProps = dispatch => {
