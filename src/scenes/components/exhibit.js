@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, Animated } from "react-native";
 import { Spinner } from "native-base";
 import FadeIn from "@expo/react-native-fade-in-image";
+import { fixImages } from "../../utilities/";
+
+const time = 250;
 
 const styles = {
   placeholderStyle: {
@@ -23,45 +26,83 @@ const styles = {
 export class Exhibit extends Component {
   constructor(props) {
     super(props);
-    this.state = { show: true };
+    this.state = {
+      image: props.image,
+      show: false,
+      fade: new Animated.Value(0)
+    };
+  }
+
+  componentDidMount() {
+    this.fadeIn();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.image !== this.props.image) {
-      this.setState(
+    if (
+      typeof nextProps.image === "undefined" &&
+      typeof this.state.image !== "undefined"
+    ) {
+      this.fadeOut();
+      setTimeout(
         () => {
-          return { show: false };
+          this.setState(
+            () => {
+              return { show: false, image: undefined };
+            },
+            () => {
+              this.fadeIn();
+            }
+          );
         },
+        time
+      );
+    } else if (nextProps.image !== this.state.image) {
+      this.fadeOut();
+      setTimeout(
         () => {
           this.setState(() => {
-            return { show: true };
+            return { image: nextProps.image, show: true };
           });
-        }
+        },
+        time
       );
     }
   }
 
-  image() {
+  fadeOut() {
+    Animated.timing(this.state.fade, {
+      toValue: 0,
+      duration: time
+    }).start();
+  }
+
+  fadeIn() {
+    Animated.timing(this.state.fade, {
+      toValue: 1,
+      duration: time
+    }).start();
+  }
+
+  renderImage() {
     return (
-      <FadeIn
-        renderPlaceholderContent={<Spinner color="#000" />}
-        placeholderStyle={styles.placeholderStyle}
-        style={styles.FadeIn}
-      >
-        <Image
-          style={styles.Image}
-          resizeMode="contain"
-          source={{ uri: this.props.image }}
-        />
-      </FadeIn>
+      <Image
+        onLoadEnd={() => {
+          this.fadeIn();
+        }}
+        style={styles.Image}
+        resizeMode="contain"
+        source={{ uri: fixImages([this.state.image])[0] }}
+      />
     );
   }
 
   render() {
-    // hax to show the user
-    // we're loading on setting
-    // change after use hits
-    // the apply button
-    return this.state.show ? this.image() : null;
+    return (
+      <Animated.View style={{ flex: 1, opacity: this.state.fade }}>
+        {this.state.show
+          ? this.renderImage()
+          : <Spinner style={{ flex: 1 }} color="#000" />}
+      </Animated.View>
+    );
   }
 }

@@ -6,23 +6,14 @@ import { getUniqueID } from "react-native-device-info";
 
 const user = getUniqueID();
 
-function getTable(table) {
-  return new Promise((resolve, reject) => {
-    firebase.database().ref(table).on("value", snap => {
-      const data = snap.val();
-      if (!data) {
-        reject();
-      } else {
-        const rows = Object.entries(data);
-        const fixed = rows.map(row => {
-          const aRow = row[1];
-          aRow["key"] = row[0];
-          return aRow;
-        });
-        resolve(fixed);
-      }
-    });
+function fixSnap(data) {
+  const rows = Object.entries(data);
+  const fixed = rows.map(row => {
+    const aRow = row[1];
+    aRow["key"] = row[0];
+    return aRow;
   });
+  return fixed;
 }
 
 function buildRow(location, props) {
@@ -120,16 +111,13 @@ export function setVoteImages(voteImages) {
 }
 
 export function getVoteImages() {
-  return async dispatch => {
-    try {
-      const data = await getTable("vote");
-      dispatch(setVoteImages(data));
-    } catch (err) {
-      if (__DEV__) {
-        console.log("error get table");
-        console.log(err);
+  return dispatch => {
+    firebase.database().ref("vote").on("value", snap => {
+      const data = snap.val();
+      if (data) {
+        dispatch(setVoteImages(fixSnap(data)));
       }
-    }
+    });
   };
 }
 
