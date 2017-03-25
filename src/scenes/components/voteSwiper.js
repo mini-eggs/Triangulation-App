@@ -62,7 +62,7 @@ class Empty extends Component {
     let text = [
       "Nothing more to see here 🙃",
       "Empty! 😱",
-      "Where did they go? 🦑",
+      "Where did they go? 😑",
       "We can't seem to find anymore 👀",
       "The 🌎 is a very small place after all"
     ];

@@ -21,7 +21,7 @@ const content = {
     },
     {
       title: "3. Vote on Photos",
-      description: "Navigate to the Vote tab and vote on other user's photos. The top six will appear on the Top tab's cube. You may only vote once per photo."
+      description: "Navigate to the Vote tab and vote on other user's photos. The top six will appear on the Top tab. You may only vote once per photo."
     }
   ]
 };

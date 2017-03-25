@@ -13,7 +13,9 @@ export function DiscoverScene({ images }) {
         <HeaderText title="Triangly" subtitle="Top" />
         <Right />
       </HeaderContainer>
-      <DiscoverCube images={images} />
+      <Container>
+        <DiscoverCube images={images} />
+      </Container>
       <HomeFooter activeIndex={1} />
     </Container>
   );
