@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, Image, Text, Animated } from "react-native";
 import { Spinner } from "native-base";
 import FadeIn from "@expo/react-native-fade-in-image";
-import { fixImages } from "../../utilities/";
 
 const time = 250;
 
@@ -91,7 +90,7 @@ export class Exhibit extends Component {
         }}
         style={styles.Image}
         resizeMode="contain"
-        source={{ uri: fixImages([this.state.image])[0] }}
+        source={{ uri: this.state.image }}
       />
     );
   }

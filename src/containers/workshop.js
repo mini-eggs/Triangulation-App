@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import {
   DiscoverActions,
-  WorkshopActions,
+  TriangulateActions,
   ModalActions,
+  WorkshopActions,
   FirebaseActions
 } from "../actions/";
 import { WorkshopScene } from "../scenes/workshop";
@@ -10,8 +11,9 @@ import { WorkshopScene } from "../scenes/workshop";
 const stateToProps = state => {
   return {
     initialImage: state.DiscoverReducer.image,
-    image: state.WorkshopReducer.image,
-    options: state.WorkshopReducer.options
+    image: state.TriangulateReducer.imageComplete,
+    options: state.WorkshopReducer.options,
+    imageUrl: state.WorkshopReducer.image
   };
 };
 
@@ -19,12 +21,13 @@ const actionsToProps = dispatch => {
   return {
     setMessage: message => dispatch(ModalActions.setMessage(message)),
     resetImage: () => {
-      dispatch(WorkshopActions.resetImage());
+      dispatch(TriangulateActions.resetImage());
     },
     removeInitialImage: () => dispatch(DiscoverActions.setImage(undefined)),
     trianguleImage: (image, options) =>
-      dispatch(WorkshopActions.trianguleImage(image, options)),
-    submitVote: image => dispatch(FirebaseActions.submitVote(image))
+      dispatch(TriangulateActions.setImageSrcAndOptions(image, options)),
+    submitVote: image => dispatch(FirebaseActions.submitVote(image)),
+    uploadPhoto: base64 => dispatch(WorkshopActions.uploadPhoto(base64))
   };
 };
 

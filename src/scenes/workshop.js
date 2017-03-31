@@ -41,6 +41,12 @@ export class WorkshopScene extends Component {
     };
   }
 
+  componentWillReceiveProps({ image, uploadPhoto }) {
+    if (typeof image === "string" && this.props.image !== image) {
+      uploadPhoto(image);
+    }
+  }
+
   componentDidMount() {
     this.props.trianguleImage(this.props.initialImage);
   }
@@ -119,15 +125,25 @@ export class WorkshopScene extends Component {
   }
 
   async share() {
+    if (typeof this.props.imageUrl === "undefined") {
+      this.props.setMessage({
+        text: "Uploading image. Try again in a moment.",
+        time: 1250
+      });
+      return;
+    }
+
+    const options = {
+      message: `I made this image with the Triangly app! 🔺 ${this.props.imageUrl}`,
+      title: "🔺🔻🔺 Triangly! 🔺🔻🔺"
+    };
+
+    const details = {
+      dialogTitle: "Share your Triangly image"
+    };
+
     try {
-      const options = {
-        message: `I made this image with the Triangly app! 🔺 ${this.props.image}`,
-        title: "🔺🔻🔺 Triangly! 🔺🔻🔺"
-      };
-      const details = {
-        dialogTitle: "Share your Triangly image"
-      };
-      const shareData = await Share.share(options, details);
+      await Share.share(options, details);
     } catch (err) {
       this.props.setMessage({
         text: "Unexpected error",
@@ -149,6 +165,7 @@ export class WorkshopScene extends Component {
         break;
       }
       case 1: {
+        // base64 works fine
         this.props.submitVote(this.props.image);
         break;
       }

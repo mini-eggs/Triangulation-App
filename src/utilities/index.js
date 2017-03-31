@@ -1,9 +1,8 @@
-const BASE = "https://restroomrate.herokuapp.com";
-// const BASE = "http://localhost:8000";
-export const SOCKET = `${BASE}/`;
-
 import * as Cube from "./cube";
 export { Cube };
+
+import * as Imgur from "./imgur";
+export { Imgur };
 
 export function fixImages(images) {
   return images.map(image => {

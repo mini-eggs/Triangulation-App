@@ -5,9 +5,10 @@ import { ReduxLayer } from "./configs/redux";
 import { FirebaseLayer } from "./configs/firebase";
 import { ModalLayer } from "./configs/modal";
 import { StylesLayer } from "./configs/styles";
+import { TriangulateLayer } from "./configs/triangulate";
 import { RoutingLayer } from "./routes/";
 
-const Triangly = () => {
+function Triangly() {
   return (
     <CodePushLayer>
       <ReduxLayer>
@@ -15,10 +16,11 @@ const Triangly = () => {
           <RoutingLayer />
           <ModalLayer />
           <FirebaseLayer />
+          <TriangulateLayer />
         </StylesLayer>
       </ReduxLayer>
     </CodePushLayer>
   );
-};
+}
 
 AppRegistry.registerComponent("Triangly", () => Triangly);

@@ -1,6 +1,5 @@
 const initialState = {
   image: undefined,
-  time: undefined,
   options: [
     {
       title: "Accuracy",
@@ -55,16 +54,8 @@ const initialState = {
 
 export const WorkshopReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "RESET_IMAGE": {
-      return Object.assign({}, state, { image: undefined });
-    }
-    case "SET_TIME":
-    case "SET_IMAGE":
-    case "COPY_IMAGE": {
+    case "SET_IMGUR_IMAGE": {
       return Object.assign({}, state, action.payload);
-    }
-    case "SET_OPTION": {
-      return state;
     }
     default: {
       return state;
