@@ -26,7 +26,9 @@ const defaultTriangulationOptions = {
 };
 
 export const setImageSrcAndOptions = (image, userOptions) => {
-  const options = Object.assign({}, defaultTriangulationOptions, userOptions);
+  let options = Object.assign({}, defaultTriangulationOptions, userOptions);
+  // fix accuracy
+  options.accuracy = (options.accuracy - 1) * -1;
   return {
     type: "IMAGE_TRIANGULATION_SET_DATA",
     payload: { imageSource: image, options: options }

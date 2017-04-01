@@ -204,7 +204,7 @@ export class WorkshopScene extends Component {
 
         <Content>
 
-          <View style={{ height: Dimensions.get("window").height * 3 / 5 }}>
+          <View style={{ height: Dimensions.get("window").height * 3 / 4 }}>
             <Exhibit image={this.props.image} />
           </View>
 
