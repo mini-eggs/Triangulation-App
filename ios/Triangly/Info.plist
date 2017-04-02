@@ -17,13 +17,13 @@
     <key>CFBundleIdentifier</key>
     <string>org.reactjs.native.example.triangly</string>
     <key>CFBundleInfoDictionaryVersion</key>
-    <string>8</string>
+    <string>8.5</string>
     <key>CFBundleName</key>
     <string>$(PRODUCT_NAME)</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>8</string>
+    <string>8.5</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>

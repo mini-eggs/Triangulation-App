@@ -56,29 +56,22 @@ class TriangulateComponent extends Component {
 
   injectedJavaScript() {
     return `
-      // set props
       var imageSource = 'data:image/png;base64,${this.props.image}';
       var imageOptions = ${JSON.stringify(this.props.options)};
-      // main work
       function Triangulate(imgSrc, options) {
         var image = new Image();
         image.onload = function () {
-          triangulate(options)
-            .fromImage(image)
-            .toDataURL()
-            .then(function(imageData) {
-              postMessage(JSON.stringify({ status: true, image: imageData }));
-            })
-            .catch(function(err) {
-              Triangulate(imgSrc, {});
-            })
+          triangulate(options).fromImage(image).toDataURL().then(function (imageData) {
+            postMessage(JSON.stringify({ status: true, image: imageData }));
+          }).catch(function (err) {
+            Triangulate(imgSrc, {});
+          });
         };
-        image.onerror = function() {
+        image.onerror = function () {
           postMessage(JSON.stringify({ status: false }));
-        }
+        };
         image.src = imgSrc;
       }
-      // call function
       Triangulate(imageSource, imageOptions);
     `;
   }
@@ -92,10 +85,10 @@ class TriangulateComponent extends Component {
       <WebViewContainer>
         <WebView
           injectedJavaScript={this.injectedJavaScript()}
+          domStorageEnabled={true}
+          javaScriptEnabled={true}
           onMessage={this.onMessage}
-          source={{
-            html: "<script src='https://evanjones.xyz/dist/triangulate-image.min.js'></script>"
-          }}
+          source={require("./triangulate.html")}
         />
       </WebViewContainer>
     );
