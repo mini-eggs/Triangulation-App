@@ -5,6 +5,7 @@
 src/keys/
 android/app/triangly-release-key.keystore
 android/gradle.properties
+android/.gradle/gradle.properties
 
 # Xcode
 #
